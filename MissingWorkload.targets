@@ -1,0 +1,22 @@
+<Project>
+
+  <!-- Turns the SDK's missing-workload checks, restore and build into no-ops. -->
+  <Target Name="_CheckForMissingWorkload" />
+  <Target Name="_CheckForUnsupportedTargetPlatformIdentifier" />
+  <Target Name="_CheckForInvalidConfigurationAndPlatform" />
+  <Target Name="_GenerateRestoreGraphProjectEntry" />
+  <Target Name="_GenerateRestoreProjectPathWalk" />
+  <Target Name="_GenerateProjectRestoreGraph" />
+  <Target Name="Restore" />
+
+  <Target Name="Build">
+    <Message Importance="high" Text="Skipping $(MSBuildProjectName): the $(TargetPlatformIdentifier) workload is not installed." />
+  </Target>
+
+  <Target Name="Rebuild" DependsOnTargets="Build" />
+
+  <Target Name="_PublishNeedsWorkload" BeforeTargets="PrepareForPublish">
+    <Error Text="$(MSBuildProjectName) cannot be published: the $(TargetPlatformIdentifier) workload is not installed." />
+  </Target>
+
+</Project>

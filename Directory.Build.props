@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Version>0.1.0</Version>
+    <ValidateXcodeVersion>false</ValidateXcodeVersion>
+    <IsAotCompatible>true</IsAotCompatible>
+    <AvaloniaUILicenseKey>$(AVALONIA_LICENSE_KEY)</AvaloniaUILicenseKey>
+  </PropertyGroup>
+</Project>

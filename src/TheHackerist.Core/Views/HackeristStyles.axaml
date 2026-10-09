@@ -1,0 +1,69 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="using:TheHackerist.Views">
+
+  <Style Selector="DockPanel.story">
+    <Setter Property="Margin" Value="0,4" />
+  </Style>
+  <Style Selector="DockPanel.story > TextBlock.rank">
+    <Setter Property="Width" Value="36" />
+    <Setter Property="TextAlignment" Value="Right" />
+    <Setter Property="Margin" Value="0,0,10,0" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+  </Style>
+  <Style Selector="ListBoxItem:selected DockPanel.story TextBlock.title">
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+
+  <Style Selector="HyperlinkButton.domain">
+    <Setter Property="Foreground" Value="{DynamicResource EnyoBlueColor}" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextSubtextFontSize}" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+  </Style>
+
+  <Style Selector="StackPanel.story-header">
+    <Setter Property="Margin" Value="0,6" />
+  </Style>
+  <Style Selector="StackPanel.thread">
+    <Setter Property="Margin" Value="16,8,16,16" />
+  </Style>
+  <Style Selector="SelectableTextBlock.story-text">
+    <Setter Property="Margin" Value="0,4,0,12" />
+  </Style>
+
+  <Style Selector="Panel.comment">
+    <Setter Property="Margin" Value="0,0,0,2" />
+  </Style>
+  <Style Selector="views|DepthRails">
+    <Setter Property="Brush" Value="{DynamicResource EnyoItemBottomBorderBrush}" />
+  </Style>
+  <Style Selector="Border.comment-header">
+    <Setter Property="Padding" Value="0,10,0,4" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="Border.collapse-pill">
+    <Setter Property="Background" Value="{DynamicResource EnyoItemBottomBorderBrush}" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="6,0" />
+  </Style>
+  <Style Selector="Border.collapse-pill > TextBlock">
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextSubtextFontSize}" />
+  </Style>
+  <Style Selector="SelectableTextBlock.comment-body">
+    <Setter Property="Margin" Value="0,0,0,6" />
+  </Style>
+
+  <Style Selector="SelectableTextBlock Run.link">
+    <Setter Property="Foreground" Value="{DynamicResource EnyoBlueColor}" />
+    <Setter Property="TextDecorations" Value="Underline" />
+  </Style>
+  <Style Selector="SelectableTextBlock Run.italic">
+    <Setter Property="FontStyle" Value="Italic" />
+  </Style>
+  <Style Selector="SelectableTextBlock Run.code">
+    <Setter Property="FontFamily" Value="Cascadia Mono, Consolas, Menlo, DejaVu Sans Mono, monospace" />
+    <Setter Property="FontSize" Value="{DynamicResource EnyoTextSubtextFontSize}" />
+  </Style>
+</Styles>

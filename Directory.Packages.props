@@ -1,0 +1,25 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Avalonia" Version="12.1.3" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
+    <PackageVersion Include="xunit.v3.mtp-v2" Version="3.2.2" />
+    <PackageVersion Include="Avalonia.Desktop" Version="12.1.3" />
+    <PackageVersion Include="Avalonia.iOS" Version="12.1.3" />
+    <PackageVersion Include="Avalonia.Browser" Version="12.1.3" />
+    <PackageVersion Include="Avalonia.Android" Version="12.1.3" />
+    <PackageVersion Include="Avalonia.Wayland" Version="12.1.3" />
+    <PackageVersion Include="Avalonia.Controls.WebView" Version="12.0.1" />
+    <PackageVersion Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3" />
+    <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.15" />
+    <PackageVersion Include="Avalonia.Skia" Version="12.1.3" />
+    <PackageVersion Include="AvaEnyo.Theme" Version="0.1.1" />
+    <PackageVersion Include="AvaEnyo.Controls" Version="0.1.1" />
+    <PackageVersion Include="AvaEnyo.Services" Version="0.1.1" />
+    <PackageVersion Include="Avalonia.Headless.XUnit" Version="12.1.3" />
+    <PackageVersion Include="Avalonia.HarfBuzz" Version="12.1.3" />
+  </ItemGroup>
+</Project>

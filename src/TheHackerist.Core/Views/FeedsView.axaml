@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:vm="using:TheHackerist.ViewModels"
+             x:Class="TheHackerist.Views.FeedsView"
+             x:DataType="vm:ShellViewModel">
+  <DockPanel>
+    <enyo:Header DockPanel.Dock="Top" Content="Hackerist" enyo:AppMenuService.IsOpenRegion="True" />
+    <enyo:Toolbar DockPanel.Dock="Bottom">
+      <enyo:Spacer />
+      <enyo:ToolButton Name="PreferencesButton" Content="Preferences" Command="{Binding OpenSettingsCommand}" />
+    </enyo:Toolbar>
+    <ListBox Name="FeedList" ItemsSource="{Binding Feeds}" SelectedIndex="{Binding SelectedFeedIndex}">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="vm:FeedViewModel">
+          <TextBlock Text="{Binding Title}" VerticalAlignment="Center" />
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+  </DockPanel>
+</UserControl>

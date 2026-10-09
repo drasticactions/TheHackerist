@@ -1,0 +1,7 @@
+<Project>
+
+  <!-- Mobile heads whose workload is not installed (iOS off macOS) are skipped instead of failing the build. -->
+  <Import Project="MissingWorkload.targets"
+          Condition="('$(TargetPlatformIdentifier)' == 'ios' and '$(UsingAppleNETSdk)' != 'true') or ('$(TargetPlatformIdentifier)' == 'android' and '$(UsingAndroidNETSdk)' != 'true')" />
+
+</Project>

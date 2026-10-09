@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:vm="using:TheHackerist.ViewModels"
+             x:Class="TheHackerist.Views.ReaderView"
+             x:DataType="vm:ReaderViewModel"
+             Background="{DynamicResource EnyoBodyBrush}"
+             enyo:EnyoBack.IsBackTarget="True">
+  <DockPanel>
+    <enyo:Header DockPanel.Dock="Top">
+      <DockPanel>
+        <enyo:Spinner Name="PageLoadingSpinner" DockPanel.Dock="Right" VerticalAlignment="Center"
+                      IsVisible="{Binding IsLoading}" IsActive="{Binding IsLoading}" />
+        <TextBlock Text="{Binding CurrentUrl.Host, FallbackValue=''}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+      </DockPanel>
+    </enyo:Header>
+    <enyo:Toolbar DockPanel.Dock="Bottom">
+      <enyo:GrabButton />
+      <enyo:ToolButton Name="BackButton" ToolTip.Tip="Back" Command="{Binding GoBackCommand}">
+        <enyo:ToolButton.Icon>
+          <PathIcon Data="{DynamicResource EnyoGlyphChevronLeft}" Width="20" Height="20" />
+        </enyo:ToolButton.Icon>
+      </enyo:ToolButton>
+      <enyo:ToolButton Name="ForwardButton" ToolTip.Tip="Forward" Command="{Binding GoForwardCommand}">
+        <enyo:ToolButton.Icon>
+          <PathIcon Data="{DynamicResource EnyoGlyphChevronRight}" Width="20" Height="20" />
+        </enyo:ToolButton.Icon>
+      </enyo:ToolButton>
+      <enyo:Spacer />
+      <enyo:ToolButton Name="ReloadButton" ToolTip.Tip="Reload" Command="{Binding ReloadCommand}">
+        <enyo:ToolButton.Icon>
+          <PathIcon Data="{DynamicResource EnyoGlyphRefresh}" Width="20" Height="20" />
+        </enyo:ToolButton.Icon>
+      </enyo:ToolButton>
+      <enyo:ToolButton Name="OpenExternallyButton" Content="Open in browser" Command="{Binding OpenExternallyCommand}" />
+    </enyo:Toolbar>
+    <ContentControl Name="WebHost" />
+  </DockPanel>
+</UserControl>

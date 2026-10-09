@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:vm="using:TheHackerist.ViewModels"
+             xmlns:views="using:TheHackerist.Views"
+             xmlns:conv="using:TheHackerist.Converters"
+             x:Class="TheHackerist.Views.StoryDetailView"
+             Background="{DynamicResource EnyoBodyBrush}"
+             x:DataType="vm:StoryDetailViewModel">
+  <DockPanel>
+    <enyo:Header DockPanel.Dock="Top">
+      <StackPanel Classes="story-header">
+        <TextBlock Classes="title" Text="{Binding Title}" TextWrapping="Wrap" MaxLines="3" TextTrimming="CharacterEllipsis" />
+        <HyperlinkButton Classes="domain" Content="{Binding Domain}" IsVisible="{Binding HasUrl}"
+                         Command="{Binding OpenLinkCommand}" />
+        <TextBlock Classes="enyo-subtext" Text="{Binding SubtitleLine}" TextTrimming="CharacterEllipsis" />
+      </StackPanel>
+    </enyo:Header>
+    <enyo:Toolbar DockPanel.Dock="Bottom">
+      <enyo:GrabButton />
+      <enyo:Spacer />
+      <enyo:ToolButton Name="LinkButton" Content="Link" IsEnabled="{Binding HasUrl}" Command="{Binding OpenLinkCommand}" />
+      <enyo:ToolButton Name="RefreshButton" ToolTip.Tip="Refresh" Command="{Binding RefreshCommand}">
+        <enyo:ToolButton.Icon>
+          <PathIcon Data="{DynamicResource EnyoGlyphRefresh}" Width="20" Height="20" />
+        </enyo:ToolButton.Icon>
+      </enyo:ToolButton>
+    </enyo:Toolbar>
+    <ScrollViewer Name="Scroller" BringIntoViewOnFocusChange="False">
+      <StackPanel Classes="thread">
+        <SelectableTextBlock Name="StoryText" Classes="enyo-paragraph story-text" TextWrapping="Wrap"
+                             IsVisible="{Binding HasStoryText}"
+                             views:RichText.Blocks="{Binding StoryBlocks}"
+                             views:RichText.LinkCommand="{Binding OpenUrlCommand}" />
+        <ItemsControl Name="CommentList" Classes="comments" ItemsSource="{Binding Comments}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <VirtualizingStackPanel />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.Styles>
+            <Style Selector="ItemsControl.comments > ContentPresenter" x:DataType="vm:CommentViewModel">
+              <Setter Property="IsVisible" Value="{Binding IsVisible}" />
+            </Style>
+          </ItemsControl.Styles>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:CommentViewModel">
+              <Panel Classes="comment">
+                <views:DepthRails Depth="{Binding Depth}" />
+                <StackPanel Margin="{Binding Depth, Converter={x:Static conv:DepthToThicknessConverter.Instance}}">
+                  <Border Name="CommentHeader" Classes="comment-header" Background="Transparent"
+                          Tapped="OnCommentHeaderTapped" DoubleTapped="OnCommentHeaderTapped">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                      <TextBlock Classes="enyo-item-secondary" Text="{Binding HeaderLine}" VerticalAlignment="Center" />
+                      <Border Classes="collapse-pill" IsVisible="{Binding HasReplies}" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding CollapseGlyph}" />
+                      </Border>
+                    </StackPanel>
+                  </Border>
+                  <SelectableTextBlock Classes="comment-body" TextWrapping="Wrap"
+                                       views:RichText.Blocks="{Binding Blocks}"
+                                       views:RichText.LinkCommand="{Binding $parent[views:StoryDetailView].((vm:StoryDetailViewModel)DataContext).OpenUrlCommand, FallbackValue={x:Null}}" />
+                </StackPanel>
+              </Panel>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <enyo:Spinner Name="LoadingSpinner" HorizontalAlignment="Center" Margin="0,16"
+                      IsVisible="{Binding IsLoading}" IsActive="{Binding IsLoading}" />
+        <StackPanel Name="ErrorPanel" HorizontalAlignment="Center" Spacing="8" Margin="16"
+                    IsVisible="{Binding ErrorMessage, Converter={x:Static ObjectConverters.IsNotNull}}">
+          <TextBlock Classes="enyo-text-error" TextAlignment="Center" Text="{Binding ErrorMessage}" />
+          <Button Name="RetryButton" HorizontalAlignment="Center" Content="Retry" Command="{Binding RefreshCommand}" />
+        </StackPanel>
+      </StackPanel>
+    </ScrollViewer>
+  </DockPanel>
+</UserControl>

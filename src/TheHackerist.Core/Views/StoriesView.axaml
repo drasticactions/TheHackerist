@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:vm="using:TheHackerist.ViewModels"
+             x:Class="TheHackerist.Views.StoriesView"
+             x:DataType="vm:FeedViewModel">
+  <DockPanel>
+    <enyo:Header DockPanel.Dock="Top">
+      <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
+    </enyo:Header>
+    <enyo:Toolbar DockPanel.Dock="Bottom">
+      <enyo:GrabButton />
+      <enyo:Spacer />
+      <enyo:ToolButton Name="RefreshButton" ToolTip.Tip="Refresh" Command="{Binding RefreshCommand}">
+        <enyo:ToolButton.Icon>
+          <PathIcon Data="{DynamicResource EnyoGlyphRefresh}" Width="20" Height="20" />
+        </enyo:ToolButton.Icon>
+      </enyo:ToolButton>
+    </enyo:Toolbar>
+    <enyo:Spinner DockPanel.Dock="Bottom" Name="LoadingMoreSpinner" Margin="0,8"
+                  HorizontalAlignment="Center"
+                  IsVisible="{Binding IsLoadingMore}" IsActive="{Binding IsLoadingMore}" />
+    <Panel>
+      <ListBox Name="StoryList" Classes="stories" ItemsSource="{Binding Stories}"
+               SelectedItem="{Binding SelectedStory}">
+        <ListBox.ItemTemplate>
+          <DataTemplate x:DataType="vm:StoryItemViewModel">
+            <DockPanel Classes="story">
+              <TextBlock DockPanel.Dock="Left" Classes="rank enyo-item-ternary" Text="{Binding Rank}" />
+              <StackPanel>
+                <TextBlock Classes="title" Text="{Binding Title}" TextWrapping="Wrap" MaxLines="2"
+                           TextTrimming="CharacterEllipsis" />
+                <HyperlinkButton Classes="domain" Content="{Binding Domain}" IsVisible="{Binding HasDomain}"
+                                 Command="{Binding $parent[ListBox].((vm:FeedViewModel)DataContext).OpenArticleCommand, FallbackValue={x:Null}}"
+                                 CommandParameter="{Binding}" />
+                <TextBlock Classes="meta enyo-subtext" TextTrimming="CharacterEllipsis">
+                  <Run Text="{Binding StatsLine}" />
+                  <Run Text=" · " />
+                  <Run Text="{Binding Byline}" />
+                </TextBlock>
+              </StackPanel>
+            </DockPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <enyo:Spinner Name="RefreshSpinner" Classes="large" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    IsActive="{Binding IsRefreshing}">
+        <enyo:Spinner.IsVisible>
+          <MultiBinding Converter="{x:Static BoolConverters.And}">
+            <Binding Path="IsRefreshing" />
+            <Binding Path="IsEmpty" />
+          </MultiBinding>
+        </enyo:Spinner.IsVisible>
+      </enyo:Spinner>
+      <StackPanel Name="EmptyState" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12" Margin="24">
+        <StackPanel.IsVisible>
+          <MultiBinding Converter="{x:Static BoolConverters.And}">
+            <Binding Path="IsEmpty" />
+            <Binding Path="!IsRefreshing" />
+          </MultiBinding>
+        </StackPanel.IsVisible>
+        <TextBlock Classes="enyo-subtext" TextAlignment="Center" TextWrapping="Wrap"
+                   Text="{Binding ErrorMessage, TargetNullValue='No stories.'}" />
+        <Button Name="EmptyRefreshButton" HorizontalAlignment="Center" Content="Refresh" Command="{Binding RefreshCommand}" />
+      </StackPanel>
+    </Panel>
+  </DockPanel>
+</UserControl>

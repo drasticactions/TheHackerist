@@ -1,0 +1,43 @@
+name: package-windows
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  zip:
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      AVALONIA_LICENSE_KEY: ${{ secrets.AVALONIA_LICENSE_KEY }}
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Signing certificate
+        env:
+          PFX: ${{ secrets.WINDOWS_CERTIFICATE_PFX }}
+          PFX_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+        run: |
+          if (-not $env:PFX) { Write-Host 'No signing certificate configured: the app is unsigned.'; exit 0 }
+          $pfx = Join-Path $env:RUNNER_TEMP 'cert.pfx'
+          [IO.File]::WriteAllBytes($pfx, [Convert]::FromBase64String($env:PFX))
+          "HACKERIST_WINDOWS_CERT=$pfx" >> $env:GITHUB_ENV
+          "HACKERIST_WINDOWS_CERT_PASSWORD=$env:PFX_PASSWORD" >> $env:GITHUB_ENV
+
+      - name: Zip
+        run: ./tools/package-windows.ps1 -Out out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Hackerist-win-x64
+          path: out/*.zip
+          retention-days: 30

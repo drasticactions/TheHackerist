@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:vm="using:TheHackerist.ViewModels"
+             xmlns:views="using:TheHackerist.Views"
+             x:Class="TheHackerist.Views.DetailView"
+             x:DataType="vm:ShellViewModel"
+             enyo:EnyoBack.IsBackTarget="True">
+  <Panel>
+    <DockPanel IsVisible="{Binding IsHome}">
+      <enyo:Header DockPanel.Dock="Top" />
+      <enyo:Toolbar DockPanel.Dock="Bottom">
+        <enyo:GrabButton />
+      </enyo:Toolbar>
+      <TextBlock Classes="enyo-subtext" Text="Select a story." HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </DockPanel>
+    <TransitioningContentControl Name="PageHost" Content="{Binding CurrentPage}"
+                                 PageTransition="{x:Static enyo:EnyoPaneTransitions.FlyIn}">
+      <TransitioningContentControl.DataTemplates>
+        <DataTemplate DataType="vm:StoryDetailViewModel">
+          <views:StoryDetailView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:ReaderViewModel">
+          <views:ReaderView />
+        </DataTemplate>
+      </TransitioningContentControl.DataTemplates>
+    </TransitioningContentControl>
+  </Panel>
+</UserControl>

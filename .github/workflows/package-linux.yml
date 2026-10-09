@@ -1,0 +1,50 @@
+name: package-linux
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  appimage:
+    runs-on: ubuntu-24.04
+    container: ubuntu:22.04
+    defaults:
+      run:
+        shell: bash
+    env:
+      AVALONIA_LICENSE_KEY: ${{ secrets.AVALONIA_LICENSE_KEY }}
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      HACKERIST_IN_CONTAINER: '1'
+    steps:
+      - name: System packages
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends git ca-certificates
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - uses: actions/checkout@v4
+
+      - name: Toolchain and .NET SDK
+        run: sh tools/linux/deps.sh --dotnet
+
+      - name: Signing key
+        env:
+          KEY: ${{ secrets.APPIMAGE_GPG_PRIVATE_KEY }}
+          KEY_ID: ${{ vars.APPIMAGE_GPG_KEY_ID }}
+        run: |
+          if [[ -n $KEY && -n $KEY_ID ]]; then
+            echo "$KEY" | gpg --batch --import
+            echo "HACKERIST_APPIMAGE_SIGN_KEY=$KEY_ID" >> "$GITHUB_ENV"
+          else
+            echo "No signing key configured: the AppImage is unsigned."
+          fi
+
+      - name: AppImage
+        run: tools/package-appimage.sh out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Hackerist-linux-x64
+          path: out/*.AppImage
+          retention-days: 30

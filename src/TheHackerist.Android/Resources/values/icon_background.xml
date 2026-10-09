@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Same Onyx grey as the iOS icon background. Not overridden for night, so the icon stays the same in dark mode. -->
+  <color name="icon_background">#D8D8D8</color>
+</resources>

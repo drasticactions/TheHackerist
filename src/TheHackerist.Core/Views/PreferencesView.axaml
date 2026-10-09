@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:vm="using:TheHackerist.ViewModels"
+             x:Class="TheHackerist.Views.PreferencesView"
+             Background="{DynamicResource EnyoBodyBrush}"
+             x:DataType="vm:SettingsViewModel">
+  <enyo:Pane Name="PreferencesPane">
+    <DockPanel Background="{DynamicResource EnyoBodyBrush}" Name="SettingsPage">
+      <enyo:PageHeader Name="Header" DockPanel.Dock="Top" ShowBackButton="True" Content="Preferences" />
+      <ScrollViewer>
+        <StackPanel MaxWidth="600" Margin="16,8,16,24">
+          <enyo:Group Header="Reading" IsVisible="{Binding CanUseInAppBrowser}">
+            <enyo:Item TapHighlight="False">
+              <DockPanel>
+                <ToggleSwitch Name="InAppBrowserToggle" DockPanel.Dock="Right" IsChecked="{Binding UseInAppBrowser}" />
+                <TextBlock Text="Open links in the app" VerticalAlignment="Center" />
+              </DockPanel>
+            </enyo:Item>
+          </enyo:Group>
+          <enyo:Group Header="Appearance">
+            <enyo:Item TapHighlight="False">
+              <enyo:RadioGroup Name="ThemePicker" HorizontalAlignment="Center"
+                               ItemsSource="{Binding ThemeOptions}" SelectedIndex="{Binding ThemeIndex}" />
+            </enyo:Item>
+          </enyo:Group>
+          <enyo:Group Header="About">
+            <enyo:Item Name="SourceCodeItem">
+              <StackPanel>
+                <TextBlock Text="Source code on GitHub" />
+                <TextBlock Classes="enyo-item-secondary" Text="github.com/drasticactions/TheHackerist"
+                           TextTrimming="CharacterEllipsis" />
+              </StackPanel>
+            </enyo:Item>
+            <enyo:Item Name="LicenseItem">
+              <TextBlock Text="License" />
+            </enyo:Item>
+            <enyo:Item Name="NoticesItem">
+              <TextBlock Text="Third-party notices" />
+            </enyo:Item>
+          </enyo:Group>
+          <TextBlock Classes="enyo-footnote" TextWrapping="Wrap" Margin="6,8"
+                     Text="Data from the official Hacker News API. Hackerist is not affiliated with Y Combinator." />
+          <TextBlock Classes="enyo-footnote" TextWrapping="Wrap" Margin="6,8"
+                     Text="Created by drasticactions. Greetings from Tokyo." />
+        </StackPanel>
+      </ScrollViewer>
+    </DockPanel>
+    <DockPanel Background="{DynamicResource EnyoBodyBrush}" Name="NoticePage">
+      <enyo:PageHeader Name="NoticeHeader" DockPanel.Dock="Top" ShowBackButton="True" />
+      <ScrollViewer>
+        <SelectableTextBlock Name="NoticeText" TextWrapping="Wrap" FontSize="13" MaxWidth="720" Margin="16,12,16,24" />
+      </ScrollViewer>
+    </DockPanel>
+  </enyo:Pane>
+</UserControl>

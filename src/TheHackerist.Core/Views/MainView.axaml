@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enyo="https://github.com/avaenyo"
+             xmlns:vm="using:TheHackerist.ViewModels"
+             xmlns:views="using:TheHackerist.Views"
+             x:Class="TheHackerist.Views.MainView"
+             x:DataType="vm:ShellViewModel">
+  <enyo:Pane Name="RootPane">
+    <enyo:SlidingPane Name="Sliding">
+      <enyo:SlidingView Name="FeedsPanel" Width="240">
+        <views:FeedsView Name="FeedsPage" />
+      </enyo:SlidingView>
+      <enyo:SlidingView Name="StoriesPanel" Width="360" FixedWidth="True">
+        <views:StoriesView Name="StoriesPage" DataContext="{Binding CurrentFeed}" />
+      </enyo:SlidingView>
+      <enyo:SlidingView Name="DetailPanel" enyo:Flex.Value="1" Dismissible="True" PeekWidth="360">
+        <views:DetailView />
+      </enyo:SlidingView>
+    </enyo:SlidingPane>
+    <views:PreferencesView Name="PreferencesPage" DataContext="{Binding Settings}" />
+  </enyo:Pane>
+</UserControl>

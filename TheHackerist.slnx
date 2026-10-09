@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/TheHackerist.Core/TheHackerist.Core.csproj" />
+    <Project Path="src/TheHackerist.Desktop/TheHackerist.Desktop.csproj" />
+    <Project Path="src/TheHackerist.Android/TheHackerist.Android.csproj" />
+    <Project Path="src/TheHackerist.iOS/TheHackerist.iOS.csproj" />
+    <Project Path="src/TheHackerist.Browser/TheHackerist.Browser.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TheHackerist.Core.Tests/TheHackerist.Core.Tests.csproj" />
+    <Project Path="tests/TheHackerist.UI.Tests/TheHackerist.UI.Tests.csproj" />
+  </Folder>
+</Solution>

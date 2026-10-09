@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>TheHackerist.Desktop</RootNamespace>
+    <IsTestProject>false</IsTestProject>
+    <AssemblyName>Hackerist</AssemblyName>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\TheHackerist.Core\Assets\AppIcon.ico</ApplicationIcon>
+    <TrimMode>full</TrimMode>
+    <PublishAot>true</PublishAot>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="Avalonia.Wayland" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TheHackerist.Core\TheHackerist.Core.csproj" />
+  </ItemGroup>
+
+</Project>

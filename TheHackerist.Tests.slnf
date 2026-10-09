@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "path": "TheHackerist.slnx",
+    "projects": [
+      "src/TheHackerist.Core/TheHackerist.Core.csproj",
+      "tests/TheHackerist.Core.Tests/TheHackerist.Core.Tests.csproj",
+      "tests/TheHackerist.UI.Tests/TheHackerist.UI.Tests.csproj"
+    ]
+  }
+}
